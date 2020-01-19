@@ -1,0 +1,30 @@
+pipeline {				//indicate the job is written in Declarative Pipeline
+    agent any				//agent specifies where the pipeline will execute. 
+    stages {
+        stage ("Download code from git") {		//an arbitrary stage name
+            steps {
+                echo "building pipeline1"
+                build 'pipeline_job1'	//this is where we specify which job to invoke.
+            }
+        }
+        stage ("Build the code") {		//an arbitrary stage name
+            steps {
+                echo "build the code || building pipeline_build2"
+                build 'pipeline_job3'	//this is where we specify which job to invoke.
+            }
+        }
+        stage ("Testing") {		//an arbitrary stage name
+            steps {
+                echo "Triggerring the Testing Build"
+                build 'pipeline_job1'	//this is where we specify which job to invoke.
+            }
+        }
+        stage ("release") {		//an arbitrary stage name
+            steps {
+                echo "Triggering the deploy and release Build"
+                build 'pipeline_job3'	//this is where we specify which job to invoke.
+            }
+        }
+    }
+    
+}
